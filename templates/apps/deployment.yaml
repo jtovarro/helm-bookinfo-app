@@ -1,0 +1,57 @@
+{{- if $.Values.global.render -}}
+{{- range $key, $val := $.Values.apps -}}
+{{- range $ver, $ker := $val }}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  {{- if $.Values.global.argocd.enabled }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+  {{- end }}
+  labels:
+    argocd.argoproj.io/managed-by: {{ $.Values.global.argocd.controller }} 
+  name: bookinfo
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $key }}-{{ $ker.version }}
+  namespace: {{ $.Values.resource.namespace }} 
+  labels:
+    app: {{ $ker.matchLabels.app }}
+    version: {{ $ker.matchLabels.version }}
+  {{- if $.Values.global.argocd.enabled }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "15"
+  {{- end }}
+spec:
+  replicas: {{ $ker.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ $ker.matchLabels.app }}
+      version: {{ $ker.matchLabels.version }}
+  template:
+    metadata:
+      {{- with $.Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        app: {{ $ker.matchLabels.app }}
+        version: {{ $ker.matchLabels.version }}
+    spec:
+      serviceAccountName: {{ $.Values.resource.name }}-{{ $key }}
+      containers:
+        - name: {{ $key }}
+          securityContext:
+            {{- toYaml $.Values.securityContext | nindent 12 }}
+          image: "{{ $ker.image.repository }}-{{ $ker.version }}:{{ $ker.image.tag | default $.Chart.AppVersion }}"
+          imagePullPolicy: {{ $ker.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 9080
+              protocol: TCP
+{{- end }}
+{{- end -}}
+{{- end -}}

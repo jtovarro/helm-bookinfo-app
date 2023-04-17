@@ -1,0 +1,35 @@
+{{- if $.Values.global.render -}}
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{ $.Values.resource.name }}-virtualservice
+  namespace: {{ $.Values.resource.namespace }}  
+  {{- if $.Values.global.argocd.enabled }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "20"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  {{- end }}
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - {{ $.Values.resource.name }}-gateway
+  http:
+  - match:
+    - uri:
+        exact: /productpage
+    - uri:
+        prefix: /static
+    - uri:
+        exact: /login
+    - uri:
+        exact: /logout
+    - uri:
+        prefix: /api/v1/products
+    route:
+    - destination:
+        host: productpage
+        port:
+          number: 9080
+{{- end -}}

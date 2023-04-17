@@ -1,0 +1,97 @@
+resource:
+  name: bookinfo 
+  namespace: bookinfo
+  
+apps:
+  details:
+    v1:
+      replicaCount: 1
+      version: "v1"
+      matchLabels:
+        app: details
+        version: v1
+      image:
+        repository: docker.io/maistra/examples-bookinfo-details
+        pullPolicy: IfNotPresent
+        # Overrides the image tag whose default is the chart appVersion.
+        tag: "0.12.0"
+  productpage:
+    v1:
+      replicaCount: 1
+      version: "v1"
+      matchLabels:
+        app: productpage
+        version: v1
+      image:
+        repository: docker.io/maistra/examples-bookinfo-productpage
+        pullPolicy: IfNotPresent
+        # Overrides the image tag whose default is the chart appVersion.
+        tag: "0.12.0" 
+  ratings:
+    v1:
+      replicaCount: 1
+      version: "v1"
+      matchLabels:
+        app: ratings
+        version: v1
+      image:
+        repository: docker.io/maistra/examples-bookinfo-ratings
+        pullPolicy: IfNotPresent
+        # Overrides the image tag whose default is the chart appVersion.
+        tag: "0.12.0"
+  reviews:
+    v1:
+      replicaCount: 1
+      version: "v1"
+      matchLabels:
+        app: reviews
+        version: v1
+      image:
+        repository: docker.io/maistra/examples-bookinfo-reviews
+        pullPolicy: IfNotPresent
+        # Overrides the image tag whose default is the chart appVersion.
+        tag: "0.12.0"
+    v2:
+      replicaCount: 1
+      version: "v2"
+      matchLabels:
+        app: reviews
+        version: v2
+      image:
+        repository: docker.io/maistra/examples-bookinfo-reviews
+        pullPolicy: IfNotPresent
+        # Overrides the image tag whose default is the chart appVersion.
+        tag: "0.12.0"
+    v3:
+      replicaCount: 2
+      version: "v3"
+      matchLabels:
+        app: reviews
+        version: v3
+      image:
+        repository: docker.io/maistra/examples-bookinfo-reviews
+        pullPolicy: IfNotPresent
+        # Overrides the image tag whose default is the chart appVersion.
+        tag: "0.12.0"
+
+serviceAccount:
+  create: true
+  annotations: {}
+
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  allowPrivilegeEscalation: false
+  runAsNonRoot: true
+  seccompProfile:
+    type: RuntimeDefault
+
+podAnnotations:
+  sidecar.istio.io/inject: "true"
+
+service:
+  port: 9080
+
+mesh:
+  trafficPolicy: ISTIO_MUTUAL

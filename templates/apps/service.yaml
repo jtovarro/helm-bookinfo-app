@@ -1,0 +1,25 @@
+{{- if $.Values.global.render -}}
+{{- range $key, $val := $.Values.apps }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $key }}
+  namespace: {{ $.Values.resource.namespace }}    
+  labels:
+    app: {{ $key }}
+    service: {{ $key }}
+  {{- if $.Values.global.argocd.enabled }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "15"
+  {{- end }}
+spec:
+  ports:
+    - port: {{ $.Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ $key }}
+{{- end }}
+{{- end -}}
