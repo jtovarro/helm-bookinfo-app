@@ -75,3 +75,10 @@ Deploy the app with ArgoCD:
           selfHeal: true
     ```
 
+    - ArgoCD managed namespaces are labeled:
+
+    ```
+    $ oc label namespace bookinfo argocd.argoproj.io/managed-by=openshift-gitops
+    $ oc label namespace istio-system argocd.argoproj.io/managed-by=openshift-gitops
+    ```
+
