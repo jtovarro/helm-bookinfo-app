@@ -38,7 +38,7 @@ $ helm template . --debug
             enabled: true
       ```
 
-    - Namespace bookinfo exits and it is included in the Service Mesh Member Roll (SMMR)
+    - Namespace bookinfo exits and it is included in the Service Mesh Member Roll (SMMR).
 
       ```
       apiVersion: maistra.io/v1
