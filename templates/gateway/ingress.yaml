@@ -10,7 +10,7 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   selector:
-    istio: ingressgateway # use istio default controller
+    istio: istio-ingressgateway # use istio default controller
   servers:
   - port:
       number: 80
