@@ -5,11 +5,9 @@ kind: Gateway
 metadata:
   name: {{ $.Values.resource.name }}-gateway
   namespace: {{ $.Values.resource.namespace }}     
-  {{- if $.Values.global.argocd.enabled }}
   annotations:
     argocd.argoproj.io/sync-wave: "20"
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-  {{- end }}
 spec:
   selector:
     istio: ingressgateway # use istio default controller

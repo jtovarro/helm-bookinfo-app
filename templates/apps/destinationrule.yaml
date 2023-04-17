@@ -6,11 +6,9 @@ kind: DestinationRule
 metadata:
   name: {{ $key }}
   namespace: {{ $.Values.resource.namespace }} 
-  {{- if $.Values.global.argocd.enabled }}
   annotations:
     argocd.argoproj.io/sync-wave: "25"
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-  {{- end }}
 spec:
   host: {{ $key }}
   trafficPolicy:

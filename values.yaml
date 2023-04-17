@@ -1,3 +1,6 @@
+global:
+  render: yes
+
 resource:
   name: bookinfo 
   namespace: bookinfo

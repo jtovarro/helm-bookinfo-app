@@ -9,10 +9,8 @@ metadata:
   labels:
     app: {{ $key }}
     service: {{ $key }}
-  {{- if $.Values.global.argocd.enabled }}
   annotations:
     argocd.argoproj.io/sync-wave: "15"
-  {{- end }}
 spec:
   ports:
     - port: {{ $.Values.service.port }}

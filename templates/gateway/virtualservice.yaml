@@ -5,11 +5,9 @@ kind: VirtualService
 metadata:
   name: {{ $.Values.resource.name }}-virtualservice
   namespace: {{ $.Values.resource.namespace }}  
-  {{- if $.Values.global.argocd.enabled }}
   annotations:
     argocd.argoproj.io/sync-wave: "20"
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-  {{- end }}
 spec:
   hosts:
   - "*"
