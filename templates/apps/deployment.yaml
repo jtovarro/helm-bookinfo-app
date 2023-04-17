@@ -8,7 +8,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "0"
   labels:
-    argocd.argoproj.io/managed-by: openshift-operators 
+    argocd.argoproj.io/managed-by: openshift-gitops 
   name: bookinfo
 ---
 apiVersion: apps/v1
