@@ -41,16 +41,16 @@ Deploy the app with ArgoCD:
 
     - Namespace bookinfo exits and it is included in the Service Mesh Member Roll (SMMR)
 
-      ```
-      apiVersion: maistra.io/v1
-      kind: ServiceMeshMemberRoll
-      metadata:
-        name: default
-        namespace: istio-system
-      spec:
-        members:
-          - bookinfo
-      ```
+    ```
+    apiVersion: maistra.io/v1
+    kind: ServiceMeshMemberRoll
+    metadata:
+      name: default
+      namespace: istio-system
+    spec:
+      members:
+        - bookinfo
+    ```
     
     - If you are willing to deploy bookinfo the gitops way using ArgoCD, create an application: 
 
