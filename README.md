@@ -1,4 +1,4 @@
-# Deploy Bookinfo sample app for Red Hat OpenShift Service Mesh operator
+# Deploy Bookinfo sample app for Red Hat OpenShift Service Mesh operator using Helm Chart
 
 - Test the helm chart:
 ```
