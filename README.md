@@ -82,3 +82,6 @@ $ helm template . --debug
   $ oc label namespace istio-system argocd.argoproj.io/managed-by=openshift-gitops
   ```
 
+## Author
+
+Juan Carlos Tovar @RedHat
