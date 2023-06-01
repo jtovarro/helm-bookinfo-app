@@ -65,7 +65,7 @@ $ helm template . --debug
       source:
         path: .
         repoURL: 'https://github.com/jtovarro/helm-bookinfo-app.git'
-        targetRevision: HEAD
+        targetRevision: dev
       sources: []
       project: default
       syncPolicy:
